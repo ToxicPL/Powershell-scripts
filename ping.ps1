@@ -86,20 +86,20 @@ $checkButton.Add_Click({
     $listBox.Items.Clear()
     $hosts = $textBox.Text -split "`r?`n" | Where-Object { $_.Trim() }
 
-    foreach ($host in $hosts) {
-        $host = $host.Trim()
-        if (-not $host) { continue }
+    foreach ($machine in $hosts) {
+        $machine = $machine.Trim()
+        if (-not $machine) { continue }
 
         try {
-            $ping = Test-NetConnection -ComputerName $host -InformationLevel Quiet -WarningAction SilentlyContinue
+            $ping = Test-NetConnection -ComputerName $machine -InformationLevel Quiet -WarningAction SilentlyContinue
             if ($ping) {
-                $listBox.Items.Add("[OK] $host is reachable")
+                $listBox.Items.Add("[OK] $machine is reachable")
             } else {
-                $listBox.Items.Add("[FAIL] $host is not reachable")
+                $listBox.Items.Add("[FAIL] $machine is not reachable")
             }
         }
         catch {
-            $listBox.Items.Add("[ERROR] $host - $($_.Exception.Message)")
+            $listBox.Items.Add("[ERROR] $machine - $($_.Exception.Message)")
         }
     }
 })
