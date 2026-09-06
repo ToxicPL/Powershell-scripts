@@ -42,12 +42,12 @@ $listBox.Font = New-Object System.Drawing.Font("Consolas", 10)
 $listBox.DrawMode = [System.Windows.Forms.DrawMode]::OwnerDrawFixed
 $listBox.ItemHeight = 22
 $listBox.Add_DrawItem({
-    param($sender, $e)
+    param($listSender, $edat)
 
-    if ($e.Index -lt 0) { return }
+    if ($edat.Index -lt 0) { return }
 
-    $itemText = $sender.Items[$e.Index].ToString()
-    $e.DrawBackground()
+    $itemText = $listSender.Items[$edat.Index].ToString()
+    $edat.DrawBackground()
 
     if ($itemText -match '^\[OK\]') {
         $brush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::Green)
@@ -59,8 +59,8 @@ $listBox.Add_DrawItem({
         $brush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::Black)
     }
 
-    $e.Graphics.DrawString($itemText, $e.Font, $brush, $e.Bounds.X + 2, $e.Bounds.Y + 3)
-    $e.DrawFocusRectangle()
+    $edat.Graphics.DrawString($itemText, $edat.Font, $brush, $edat.Bounds.X + 2, $edat.Bounds.Y + 3)
+    $edat.DrawFocusRectangle()
 })
 $form.Controls.Add($listBox)
 
